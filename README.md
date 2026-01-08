@@ -1,175 +1,156 @@
-Auto-Anton 🚀
+# Auto-Anton 🚀  
+**Local Ollama Launcher + Web UI (Windows / .NET 8)**
 
-Local Ollama Launcher + Web UI (Windows / .NET 8)
+Auto-Anton is a **Windows desktop launcher (.exe)** that safely starts **Ollama**, launches a **local web UI**, prevents duplicate instances, and opens or focuses the browser automatically.
 
-Auto-Anton is a Windows desktop launcher (.exe) that safely starts Ollama, launches a local web UI, prevents duplicate instances, and opens or focuses the browser automatically.
+It is designed to make **local LLM usage easy, reliable, and repeatable**.
 
-It is designed to make local LLM usage easy, reliable, and repeatable.
+---
 
-✨ Features
+## ✨ Features
 
-✅ One-click Start Auto-Anton
+- ✅ One-click **Start Auto-Anton**
+- ✅ Automatically starts **Ollama** if not running
+- ✅ Detects existing Ollama + UI instances
+- ✅ Prevents multiple background processes
+- ✅ Web UI opens or focuses existing browser tab
+- ✅ User-selectable `ollama.exe` path (saved permanently)
+- ✅ Glass overlay (prevents double-clicks)
+- ✅ Process cleanup (kills stale Anton / Python / Ollama)
+- ✅ .NET 8 LTS compliant
+- ✅ Works as a standalone `.exe`
 
-✅ Automatically starts Ollama if not running
+---
 
-✅ Detects existing Ollama + UI instances
-
-✅ Prevents multiple background processes
-
-✅ Web UI opens or focuses existing browser tab
-
-✅ User-selectable ollama.exe path (saved permanently)
-
-✅ Glass overlay (prevents double-clicks)
-
-✅ Process cleanup (kills stale Anton / Python / Ollama)
-
-✅ .NET 8 LTS compliant
-
-✅ Works as a standalone .exe
-
-🧱 Architecture (High Level)
+## 🧱 Architecture (High Level)
 [ Auto-Anton.exe ]
-        |
-        ├── Ensures Ollama is running (ollama serve)
-        ├── Starts local Web UI (Flask / Python)
-        ├── Opens or focuses browser (127.0.0.1:5000)
-        └── Manages process lifecycle & cleanup
+|
+├── Ensures Ollama is running (ollama serve)
+├── Starts local Web UI (Flask / Python)
+├── Opens or focuses browser (127.0.0.1:5000)
+└── Manages process lifecycle & cleanup
 
-📦 Requirements
-System
 
-Windows 10 / 11 (64-bit)
+---
 
-Administrator access (recommended)
+## 📦 Requirements
 
-Software
+### System
+- Windows 10 / 11 (64-bit)
+- Administrator access (recommended)
 
-Ollama (installed locally)
-👉 https://ollama.com
+### Software
+- **Ollama** (installed locally)  
+  👉 https://ollama.com
+- **Python 3.10+** (if running from source)
+- **.NET 8 Desktop Runtime**  
+  👉 https://dotnet.microsoft.com/download/dotnet/8.0
 
-Python 3.10+ (if running from source)
+---
 
-.NET 8 Desktop Runtime (for .exe)
-👉 https://dotnet.microsoft.com/en-us/download/dotnet/8.0
+## 🚀 Installation (Recommended – EXE)
 
-🚀 Installation (Recommended – EXE)
+1. Download the latest release from **GitHub Releases**
+2. Extract the folder
+3. Run:
 
-Download the latest release from GitHub Releases
 
-Extract the folder
-
-Run:
 
 Auto-Anton.exe
 
 
-🔔 On first run, you may be prompted to locate ollama.exe
+> 🔔 On first run, you may be prompted to locate `ollama.exe`
 
-That’s it.
+---
 
-🛠 First-Time Setup (Important)
-Ollama Path Selection
+## 🛠 First-Time Setup (Important)
 
+### Ollama Path Selection
 If Ollama is not found automatically:
+- A file picker will appear
+- Select `ollama.exe`
 
-A file picker will appear
+Common paths:
 
-Select:
-
-ollama.exe
-
-
-Example paths:
 
 C:\Program Files\Ollama\ollama.exe
-C:\Users\<you>\AppData\Local\Programs\Ollama\ollama.exe
+C:\Users<you>\AppData\Local\Programs\Ollama\ollama.exe
 
 
-The path is saved permanently in:
+The path is saved permanently to:
+
 
 %LOCALAPPDATA%\AutoAnton\config.json
 
-▶ How To Use
 
-Launch Auto-Anton
+---
 
-Click ▶ Start Auto-Anton
+## ▶ How To Use
 
-Confirm startup
+1. Launch **Auto-Anton**
+2. Click **▶ Start Auto-Anton**
+3. Confirm startup
+4. Browser opens to:
 
-Browser opens to:
+
 
 http://127.0.0.1:5000
 
-What Happens Automatically
 
-Existing Anton / Ollama processes are cleaned
+---
 
-Ollama starts if needed
+## 🌐 Web UI Features
 
-Web UI starts
+- ChatGPT-style interface
+- Copy-to-clipboard buttons
+- File upload support
+- Error handling shown in UI
+- Fully local (no cloud calls)
 
-Browser opens or focuses existing tab
+---
 
-🌐 Web UI Features
-
-Chat interface (ChatGPT-style)
-
-Copy-to-clipboard buttons
-
-File upload support
-
-Error handling surfaced in UI
-
-No external API calls
-
-Fully local
-
-🧹 Cleanup & Safety
+## 🧹 Cleanup & Safety
 
 Auto-Anton automatically:
+- Prevents multiple instances
+- Kills stale processes
+- Blocks repeated clicks while starting
+- Uses a glass overlay during startup
 
-Prevents multiple instances
+Safe to close at any time.
 
-Kills stale processes
+---
 
-Blocks repeated clicks while starting
+## 🐛 Troubleshooting
 
-Uses a glass overlay during startup
+### ❌ Ollama won’t start
+- Ensure Ollama is installed
+- Verify selected `ollama.exe` path
+- Run Auto-Anton as **Administrator**
 
-You can safely close the app at any time.
+---
 
-🐛 Troubleshooting
-❌ Ollama won’t start
-
-Ensure Ollama is installed
-
-Verify the selected ollama.exe path
-
-Run Auto-Anton as Administrator
-
-❌ Port 11434 blocked
-
+### ❌ Port 11434 blocked
 Allow Ollama through firewall:
 
+```powershell
 New-NetFirewallRule -DisplayName "Ollama" -Direction Inbound -Protocol TCP -LocalPort 11434 -Action Allow
 
 ❌ Web UI doesn’t open
 
-Check that build_and_run_autonanton.ps1 exists
+Ensure build_and_run_autonanton.ps1 exists
 
-Ensure PowerShell execution policy allows scripts:
+Allow PowerShell scripts:
 
 Set-ExecutionPolicy Bypass -Scope CurrentUser
 
 🧑‍💻 Development (Optional)
-Run from Source
+Build from Source
 git clone <repo>
 cd auto-open-claude
 dotnet build
 
-Python UI
+Run Web UI Only
 python web_ui.py
 
 📁 Project Structure
@@ -189,14 +170,14 @@ Auto-Anton/
 
 No telemetry
 
-No cloud calls
+No cloud APIs
 
 No API keys
 
 📜 License
 
 MIT License
-Use, modify, distribute freely.
+Free to use, modify, and distribute.
 
 🙌 Credits
 
@@ -207,15 +188,3 @@ Built with:
 Python + Flask
 
 Ollama (local LLM runtime)
-
-🗺 Roadmap (Optional)
-
-⏳ Tray icon mode
-
-⏳ Auto-start on Windows boot
-
-⏳ Model selector UI
-
-⏳ Status indicators (Ollama / UI / Browser)
-
-⏳ MSI Installer
