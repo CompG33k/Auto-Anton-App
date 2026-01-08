@@ -10,5 +10,5 @@
     "node_modules",
     "wwwroot"
   ],
-  "ollamapath": "C:\\Users\\NJVel\\AppData\\Local\\Programs\\Ollama\\ollama.exe"
+  "ollamapath": "C:\\Users\\%LOCALAPPDATA%\\AppData\\Local\\Programs\\Ollama\\ollama.exe"
 }
